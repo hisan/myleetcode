@@ -7,6 +7,7 @@ struct ListNode {
 
 typedef struct ListNode node;
 
+//力扣网友的解法
 struct ListNode *getIntersectionNode(struct ListNode *headA, struct ListNode *headB) {
 
 	/**
@@ -31,6 +32,35 @@ struct ListNode *getIntersectionNode(struct ListNode *headA, struct ListNode *he
 		pB = pB == NULL ? headA : pB->next;
 	}
 	return pA;
+    
+}
+
+//暴力解决
+struct ListNode *getIntersectionNode(struct ListNode *headA, struct ListNode *headB) {
+
+    struct ListNode *ptmp = headB;
+    if (headA == NULL || headB == NULL)
+    {
+        return NULL;
+    }
+
+    while (headA != NULL)
+    {
+        while (headB != NULL)
+        {
+            if (headA == headB)
+            {
+                return headA;
+            }
+
+            headB = headB->next;
+        }
+        
+        headB = ptmp;
+        headA = headA->next;
+    }
+
+    return NULL;
     
 }
 
