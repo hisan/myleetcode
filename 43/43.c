@@ -35,7 +35,7 @@ char * multiply1(char * num1, char * num2){
     while (*p != '\0')
     {
         tmp = *p - 48;
-        tmp *= pow(10,len-m-1);
+		tmp *= pow(10,len-m-1); 
         value2 += tmp;
         m++;
         p++;
