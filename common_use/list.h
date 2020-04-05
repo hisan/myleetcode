@@ -1,4 +1,4 @@
-#ifdef __LIST__H__
+#ifndef __LIST__H__
 #define __LIST__H__
 
 #ifdef _cplusplus
@@ -18,6 +18,7 @@ typedef struct ListNode node;
 */
 node *CreateSingleyLinkList_FromArray(int *pArray,int size);
 
+
 /*
 * function: insertionSortList
 * describe: 对链表进行插入排序
@@ -26,6 +27,7 @@ node *CreateSingleyLinkList_FromArray(int *pArray,int size);
 */
 struct ListNode* insertionSortList(struct ListNode* head);
 
+
 /*
 * function: printlist
 * describe: 打印单向链表的值
@@ -33,6 +35,18 @@ struct ListNode* insertionSortList(struct ListNode* head);
 * param[out]:
 */
 void printlist(node *list);
+
+
+/*
+* function: Freelist
+* describe: 释放单向链表的值
+* param[in]:node *head 单向链表头指针
+* param[out]:
+*/
+void Freelist(struct ListNode *list);
+
+
+
 
 #ifdef _cplusplus	
 }

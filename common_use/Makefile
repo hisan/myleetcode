@@ -1,4 +1,4 @@
 list.o : list.c list.h
-	cc -c list.c
+	gcc -c list.c
 clean:
-	rm *.o
+	rm *.o *.a

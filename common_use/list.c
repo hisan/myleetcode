@@ -3,6 +3,7 @@
 #include <string.h>
 #include "list.h"
 
+
 struct ListNode 
 {	
 	int val;
@@ -46,7 +47,6 @@ void printlist(node *list)
 		printf("    %d    \n",p->val);
 		p = p->next;
 	}
-	printf("\n\n\n");
 }
 
 struct ListNode* insertionSortList(struct ListNode* head){
@@ -97,4 +97,17 @@ struct ListNode* insertionSortList(struct ListNode* head){
 	return head;
 }
 
-
+void Freelist(struct ListNode *list)
+{
+	if (list == NULL)
+	{
+		return;
+	}
+	struct ListNode *tmp = NULL;
+	while (tmp)
+	{
+		tmp = list->next;
+		free(list);
+		list = tmp;
+	}
+}
