@@ -44,7 +44,7 @@ void printlist(node *list)
 	node *p = list;
 	while (p)
 	{
-		printf("    %d    \n",p->val);
+		printf("%d\n",p->val);
 		p = p->next;
 	}
 }

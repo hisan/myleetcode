@@ -1,6 +1,6 @@
 test : test.o
-	gcc -o test test.o -L. -llist
+	gcc -ggdb -o test test.o -L. -llist
 test.o : test.c
-	gcc -c test.c
+	gcc -ggdb -c test.c
 clean:
 	rm ./*.a ./*.o
