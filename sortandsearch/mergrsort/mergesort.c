@@ -1,8 +1,11 @@
+//2020-0606 杭州
+
 #include <stdio.h>
 #include <string.h>
-//归并的思想：根据路数，将待排序序列划分成最小的子序列，在进行归并
 
-//int b[100];
+
+
+//归并的思想：根据路数，将待排序序列划分成最小的子序列，在进行归并
 
 //归并
 void merge(int *a,int low,int mid,int high)
