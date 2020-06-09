@@ -89,7 +89,7 @@ int coinChange(int* coins, int coinsSize, int amount)
 
 
 
-int main()
+int main1()
 {
 	count = 0;//看看递归执行了多少次
 	//int coins1[] = {1, 2, 5}, amount = 11;				//count= 63
@@ -133,6 +133,87 @@ int main()
 	6.这题可以增加我们对问题的解的全面考虑，在全面考虑的此基础上，将那些不需要的解提前剪枝，不用再走，从而就能在一个小范围内寻求最优解。
 	
 */
+
+
+
+//2.非暴力的理解
+int coinChange2(int *coins,int coinsSize, int amount) 
+{
+	//初始化记忆数组
+	int *dp = (int *)malloc(sizeof(int)*(amount+1));
+	memset(dp,-1,sizeof(int)*(amount+1));
+	dp[0] = 0;
+	for (int i = 1;i < amount+1;i++)
+	{
+		
+		dp[i] = amount+1;
+	}
+	
+	for (int i = 0; i < coinsSize;i++)//做优化，提前将那些一定最优的dp[x]计算出来
+	{
+        if (coins[i] <= amount)
+        {
+		    dp[coins[i]] = 1;
+        }
+	}
+	
+	for (int i = 1; i <= amount; i++)//我们计算出每一个dp[i]，达到自底向上的目的,一定要从1开始，因为我们只能从底向上推，反之，我们要都知道顶了，那么我们干嘛还要继续计算
+	{
+		for (int j = 0; j < coinsSize; j++)//此for循环，不断计算dp[i]的值，直至最优
+		{
+			if (coins[j] <= i) 
+			{
+				dp[i] = min(dp[i], (dp[i - coins[j]] + 1));
+			}
+		}
+	}
+	
+	return (dp[amount] > amount)?-1:dp[amount];
+}
+
+int main()
+{
+	//int coins[] = {5,2,1}, amount = 11;	
+	int coins[] = {186,419,83,408},amount = 6249;
+	int ret = coinChange2(coins,sizeof(coins)/sizeof(coins[0]),amount);
+	printf("%d\r\n",ret);
+	
+	return 0;
+}
+
+/* 
+
+1.状态方程的理解
+dp[i] = min(dp[i], (dp[i - coins[j]] + 1));
+
+dp[i]，即构成面值i的最少硬币数，那么，其实我们还可以计算一下，dp[i-coins[j]]+1的值，看它和dp[i]比起来，谁更小？
+
+当然首先我们要保证i>coins[j]才能进行如此计算。
+
+2.为什么内循环(for(int j = 0; j < coinsSize; j++))能计算出最优的dp[i]?
+
+因为，对于coins数组来说，它肯定是固定的，那么dp[coins[x]] = min(dp[coins[x]],dp[coins[x] - coins[x]]+1).
+是一定可以知道==1的，
+也就是说，dp[coins[x]]的最优解是一定等于1的，这个从题目要求就可以知道，即使我们一开始将dp[coins[x]]赋值为！=1，
+在内循环中，会逐步地将最优的值求出来。
+
+由以上结果可以看出，不仅计算出了dp[amount],而且将dp[0]~dp[amount]的值全部计算出来了。那么，这也是一个再次可以做计算速度的优化点。
+
+(优化步骤如152line~158)
+
+3.第一个for循环从1开始的必要性:因为我们只能从底向上推，反之，我们要都知道顶了，那么我们干嘛还要继续计算?
+我们是由已知推未知，而已知是由coins数组决定的,也就是说，coins[]有几个成员，就有几个dp[coins[x]]=1,再加上一个dp[0]=0。
+且dp[i]中的i必须小于等于amount,也即是coins[x]<=amount的coins成员才成立。
+
+*/
+
+
+
+
+
+
+
+
 
 
 
