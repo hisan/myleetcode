@@ -123,7 +123,6 @@ int main()
 	ret = largest1BorderedSquare(grid,gridSize,&colsize);
 	
 	printf("%d\r\n",ret);
-	
 }
 
 
