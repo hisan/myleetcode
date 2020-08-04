@@ -43,8 +43,8 @@ int** combine(int n, int k, int* returnSize, int** returnColumnSizes)
 
 int main()
 {
-	int n = 20;
-	int k = 16;
+	int n = 3;
+	int k = 3;
 	int returnSize = 0;
 	int *retcol = malloc(sizeof(int)*10000);
 	memset(retcol,0,sizeof(int)*10000);
