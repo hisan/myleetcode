@@ -37,7 +37,7 @@ int matchleftwords(char *curstart,char ** words, int wordsSize,int *used,int *co
 		*count += 1;
 		
         curstart += strlen(words[i]);
-        //只要匹配了就返回，不需要得到所有符合条件的情况。
+		
         if ( YES_MATCH == matchleftwords(curstart,words,wordsSize,used,count,S,savepos))
         {
             return YES_MATCH;

@@ -2030,10 +2030,12 @@ int main()
 	#if 1
 	printf("%d\r\n",time(NULL));
 	main1();
+	print_array(a,sizeof(a)/sizeof(a[0]));
 	printf("%d\r\n\r\n\r\n\r\n",time(NULL));
 	#else 
 	printf("%d\r\n",time(NULL));
 	main2();
+	print_array(a,sizeof(a)/sizeof(a[0]);
 	printf("%d\r\n",time(NULL));
 	#endif 
 	
