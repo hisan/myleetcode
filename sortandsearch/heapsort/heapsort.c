@@ -1,47 +1,61 @@
-#include <stdio.h>
-#include <time.h>
-//希尔排序，即间隔地进行插入排序
-//按照间隔inter，从序列a的start处开始排序
-int insertsort_withinter(int *a,int start,int num,int inter)
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include <assert.h>
+
+void Swap(int *a,int *b)
 {
-	int i = 0,j = 0,k = 0;
-	int tmp = 0;
-	for (i = start - 1 + inter;i < num;i += inter)
-	{
-		if (a[i] < a[start-1])
-		{//当前元素比有序序列中的头元素还要写，则直接"头插"
-			tmp = a[i];
-			for (j = i ;j > start - 1;j -= inter)//将有序序列全部往后挪位置
-			{
-				a[j] = a[j-inter];
-			}
-			
-			a[start-1] = tmp;
-			
-		}
-		else if (a[i] >= a[i-inter])
-		{
-			continue;
-		}
-		else
-		{
-			for (j = start-1;j <= i - inter; j += inter)//在有序序列中找到当前待排序元素的插入位置。
-			{
-				if (a[i] >= a[j])
-				{
-					continue;
-				}
-				
-				tmp = a[i];
-				for (k = i; k >= j; k -= inter)
-				{
-					a[k] = a[k - inter];
-				}
-				a[j] = tmp;
-			}
-		}
-	}
+    int temp = *a;
+    *a = *b;
+    *b = temp;
 }
+
+void AdjustDown(int *A,int i,int len)
+{//对完全二叉树的序列数组A的i位置进行向下排序调整
+    int tempval = A[i];//保存我们有可能向下调整的值
+    for(int k = 2*i+1;k<len;k = k*2+1)
+    {
+        if(k<len-1&&A[k] < A[k+1])
+        {//我们是要将当前节点和他的两个孩子中的较大者进行比较，
+         //所以我们寻找两者中的最大者的前提条件就是当前节点由两个孩子,所以K < len-1很有必要
+            k++;
+        }
+
+        if(tempval >= A[k])
+        {//若是当前节点大于他的孩子，则当前节点无需向下调整
+            break;
+        }
+        else
+        {
+            A[i] = A[k];
+            i = k;//当前节点已经调整，则继续调整当前节点的子节点，所以i = k
+        }
+    }
+    A[i] = tempval;//经过一系列的调整，最终我们被筛选节点的值放入最终的位置
+}
+
+void BuildMaxHeap(int *A,int len)
+{
+    for(int i = (len/2)-1;i>=0;i--)
+    {
+        AdjustDown(A,i,len);
+    }
+}
+
+void heapsort(int *A,int len,int k,int **retArray,int *returnSize)
+{//输出长度为len的数组A中的前k大元素
+    BuildMaxHeap(A,len);//由初始序列A,构造大顶堆，堆是一个逻辑概念，
+    //就是用数组序列模拟完全二叉树，利用完全二叉树的特征进行排序操作
+    for(int i = len;i >=len - k +1;i--)//k趟交换和建堆过程
+    {
+        *retArray = (int*)realloc(*retArray,sizeof(int)*( (*returnSize)+1 ) );
+        (*retArray)[(*returnSize)++] = A[0];
+        Swap(&A[i-1],&A[0]);//经过建堆，我们得到一个大顶堆，我们可以将最小值A[len-1]与最大值A[0]交换
+        AdjustDown(A,0,i-1);//然后从A[0]开始向下调整又得到一个大顶堆，这样重复k次我们就得了前k大元素
+    }
+}
+
+
 
 void print_array(int *a,int num)
 {
@@ -51,7 +65,6 @@ void print_array(int *a,int num)
 	}
 	printf("\r\n");
 }
-
 
 #if 1
 
@@ -2007,44 +2020,26 @@ int a[] = {2,0,6,9,8,4,5,0,8,9,0,1,2,213,1,3,32,13,1,23,12,34,234,12,31,23,123,1
 #endif
 
 
-int main1()
-{
-	int t = 3;//1 <= k <= t <=[log2(n+1)]
-	int dlta = 0;//dlta = (1<<(t-k+1)) - 1;
-	
-	for (int k = 0 ; k < t;k++)
-	{
-		dlta = (1<<(t-k+1)) - 1;
-		insertsort_withinter(a,1,sizeof(a)/sizeof(a[0]),dlta);
-		//print_array(a,sizeof(a)/sizeof(a[0]));
-	}
-	
-	insertsort_withinter(a,1,sizeof(a)/sizeof(a[0]),1);//最后再来一次排序
-	//print_array(a,sizeof(a)/sizeof(a[0]));
-	
-	return 0;
-}
 
-int main2()
-{	
-	insertsort_withinter(a,1,sizeof(a)/sizeof(a[0]),1);//最后再来一次排序
-	return 0;
-}
 
 int main()
 {
-	#if 1
-	printf("%d\r\n",time(NULL));
-	main1();
-	print_array(a,sizeof(a)/sizeof(a[0]));
-	printf("%d\r\n\r\n\r\n\r\n",time(NULL));
-	#else 
-	printf("%d\r\n",time(NULL));
-	main2();
-	print_array(a,sizeof(a)/sizeof(a[0]);
-	printf("%d\r\n",time(NULL));
-	#endif 
+    //int a[10] = {0,1,2,3,4,5,6,7,8,9};
+    int *result = NULL;
+    int resultSize = 0;
+    int size = sizeof(a)/sizeof(int);
+	//BuildMaxHeap(a,10);//没毛病
 	
+    heapsort(a,size,2000,&result,&resultSize);//没毛病
+    assert(resultSize == 2000);
+    print_array(result,resultSize);
 }
 
-
+/*
+一个关键点就是比较：
+    比较成功，满足条件，则不是互换A[i]与A[k]的值，
+    而是确定了A[k]的值，由于大小顶堆的性质，
+    要所有节点都满足（（A[i]<A[2i]）&&（A[i]<A[2i+1]））或者
+    （（A[i]>A[2i]）&&（A[i]>A[2i+1]））,因此，A[i]的值要在已经到了跳出条件才能确定，
+    从而我们记录在调整开始前记录的A[0]=A[k]是很重要的。
+*/

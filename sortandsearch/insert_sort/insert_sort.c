@@ -1,57 +1,49 @@
 #include <stdio.h>
-#include <time.h>
-//希尔排序，即间隔地进行插入排序
-//按照间隔inter，从序列a的start处开始排序
-int insertsort_withinter(int *a,int start,int num,int inter)
+
+//O(n) = 1.最大时间复杂度为O(n^2)
+void insertsort(int *a,int size)
 {
+	if (a == NULL || size == 0)
+	{
+		return ;
+	}
+	
 	int i = 0,j = 0,k = 0;
 	int tmp = 0;
-	for (i = start - 1 + inter;i < num;i += inter)
+	for (i=1;i < size;i++)
 	{
-		if (a[i] < a[start-1])
-		{//当前元素比有序序列中的头元素还要写，则直接"头插"
+		if (a[i] < a[0])//若当前待排序数小于递增的有序序列中的第一个数，则将当前待排序序列插入为有序序列的第一个数
+		{
 			tmp = a[i];
-			for (j = i ;j > start - 1;j -= inter)//将有序序列全部往后挪位置
+			for (j = i ; j >=1;j--)//有序序列中的数全部往后移一个位置
 			{
-				a[j] = a[j-inter];
+				a[j] = a[j-1];
 			}
-			
-			a[start-1] = tmp;
-			
+			a[0] = tmp;
 		}
-		else if (a[i] >= a[i-inter])
+		else if(a[i] >= a[i-1])//直接插入在尾部
 		{
 			continue;
 		}
-		else
+		else 
 		{
-			for (j = start-1;j <= i - inter; j += inter)//在有序序列中找到当前待排序元素的插入位置。
+			for (j = 0;j <=i;j++)//寻找插入位置:经过前面两个判断，待插入的位置一定在有序序列中
 			{
-				if (a[i] >= a[j])
+				if (a[i] > a[j])
 				{
 					continue;
 				}
 				
 				tmp = a[i];
-				for (k = i; k >= j; k -= inter)
+				for (int k = i;k >= j;k--)
 				{
-					a[k] = a[k - inter];
+					a[k] = a[k-1];
 				}
 				a[j] = tmp;
 			}
 		}
 	}
 }
-
-void print_array(int *a,int num)
-{
-	for (int i = 0 ; i < num;i++)
-	{
-		printf("%d\r\n",a[i]);
-	}
-	printf("\r\n");
-}
-
 
 #if 1
 
@@ -2002,49 +1994,31 @@ int a[] = {2,0,6,9,8,4,5,0,8,9,0,1,2,213,1,3,32,13,1,23,12,34,234,12,31,23,123,1
 		0,1,2,0,1,4,6,5,8,0,71,12,1212,12,23,12,34,1234,34,1,45,213,1,3,32,13,1,23,12,34,234,12,31,23,123,123,12,9,3,4,6,6,5,8,9,3,4,3,7,0,\
 		0,1,2,0,1,4,6,5,8,0,71,12,1212,12,23,12,34,1234,34,1,45,213,1,3,32,13,1,23,213,1,3,32,13,1,23,12,34,234,12,31,23,123,123,12,9,3,4,6,6,5,8,9,3,4,3,7,0,3,12,34,234,12,31,23,123,123,12,9,3,4,6,6,5,8,9,3,4,3,7,0,\
 		9,5,7,7,1,5,8};
-
-		
 #endif
 
 
-int main1()
+void print_array(int *g,int size)
 {
-	int t = 3;//1 <= k <= t <=[log2(n+1)]
-	int dlta = 0;//dlta = (1<<(t-k+1)) - 1;
-	
-	for (int k = 0 ; k < t;k++)
+	int i = 0;
+	for (; i < size;i++)
 	{
-		dlta = (1<<(t-k+1)) - 1;
-		insertsort_withinter(a,1,sizeof(a)/sizeof(a[0]),dlta);
-		//print_array(a,sizeof(a)/sizeof(a[0]));
+		printf("%d\n",g[i]);
 	}
-	
-	insertsort_withinter(a,1,sizeof(a)/sizeof(a[0]),1);//最后再来一次排序
-	//print_array(a,sizeof(a)/sizeof(a[0]));
-	
-	return 0;
-}
-
-int main2()
-{	
-	insertsort_withinter(a,1,sizeof(a)/sizeof(a[0]),1);//最后再来一次排序
-	return 0;
 }
 
 int main()
 {
-	#if 1
-	printf("%d\r\n",time(NULL));
-	main1();
-	print_array(a,sizeof(a)/sizeof(a[0]));
-	printf("%d\r\n\r\n\r\n\r\n",time(NULL));
-	#else 
-	printf("%d\r\n",time(NULL));
-	main2();
-	print_array(a,sizeof(a)/sizeof(a[0]);
-	printf("%d\r\n",time(NULL));
-	#endif 
+	//int a[] = {25,28,520,105,110,1,2,25,100,101,21,23,3,92,94,98,3,61,4,19,24,102,104,53,70,71,82,83,86,12};
+	int size = sizeof(a)/sizeof(int);
+	insertsort(a,size);
+	print_array(a,size);
 	
+	return 0;
 }
 
 
+#if 0
+
+感觉很慢
+
+#endif
