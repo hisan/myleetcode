@@ -1,108 +1,106 @@
-//2020-04-06 16:16 浙江杭州
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
-#include <stddef.h>
-#include <stdbool.h>
-
-/*
-你这个学期必须选修 numCourse 门课程，记为 0 到 numCourse-1 。
-
-在选修某些课程之前需要一些先修课程。 例如，想要学习课程 0 ，你需要先完成课程 1 ，我们用一个匹配来表示他们：[0,1]
-
-给定课程总量以及它们的先决条件，请你判断是否可能完成所有课程的学习？
-
-来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/course-schedule
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
-
-*/
-
-//未通过
-bool canFinish(int numCourses, int** prerequisites, int prerequisitesSize, int* prerequisitesColSize)
+typedef struct st_Queue
 {
-	int total = 0 ;
-	int **array = NULL;
-	int maxnum = pow(numCourses,2);
-	*prerequisitesColSize = 0;
+	int array[2000];
+	int head;
+	int tail;
+	int size;
+}Queue;
+
+#if 0
+使用队列，动态地维护了结点的出入队动作代表的遍历与否。
+#endif
+
+void enqueue(Queue *queue,int val)
+{
+	queue->array[queue->tail] = val;
+	queue->tail += 1;
+	queue->size += 1;
+}
+
+int dequeue(Queue *queue)
+{
+	int tmp = queue->array[queue->head];
+	queue->head += 1;
+	queue->size -= 1;
+	return tmp;
+}
+
+void que_init(Queue *queue)
+{
+	memset(queue,0,sizeof(Queue));
+}
+
+
+
+bool canFinish(int numCourses, int** prerequisites, int prerequisitesSize, int* prerequisitesColSize){
+
+	int i = 0,j = 0;
+	int *degree = NULL;
+	int **map = NULL;	
+	int *res = NULL;
+	int tmpval = 0;
+	int cnt = 0;
+	Queue g_queue;
+
+	que_init(&g_queue);
+
+	degree = (int *)malloc(sizeof(int)*numCourses);
+	memset(degree,0,sizeof(int)*numCourses);
 	
-	if (prerequisitesSize > 1 + (maxnum/2) )
-	{//不可能大于一半的路径
-		return false;
-	}
+	map = (int **)malloc(sizeof(int *)*numCourses);
+	memset(map,0,sizeof(int *)*numCourses);
 
-	array = (int **)malloc(sizeof(int*)*numCourses);
-	if (array == NULL)
+	for (i = 0;i < numCourses;i++)
 	{
-		return false;
+		map[i] = (int *)malloc(sizeof(int)*numCourses);
+		memset(map[i],0,sizeof(int)*numCourses);
 	}
-
-	memset(array,0,sizeof(int *)*numCourses);
-
-	for (int i = 0 ;i < numCourses;i++)
+	
+	for (j = 0; j < prerequisitesSize;j++)//使用degree记录每个课程的出入度
 	{
-		array[i] = (int *)malloc(sizeof(int)*numCourses);
-		memset(array[i],0,sizeof(int)*numCourses);
+		degree[prerequisites[j][0]] += 1;//入度
+		map[prerequisites[j][1]][prerequisites[j][0]] = 1;
 	}
-
-	//初始化
-	for (int i = 0 ;i < prerequisitesSize;i++)
+	
+    for (j=0;j<numCourses;j++)
+    {
+        if (degree[j] == 0)
+        {
+			enqueue(&g_queue,j);
+        }
+    }
+	
+	while (g_queue.size != 0)
 	{
-		if (array[(prerequisites[i][0]-1)][(prerequisites[i][1]-1)] == 1)
-		{//课程重复？？？
-			return false;
-		}
-
-		array[(prerequisites[i][0]-1)][(prerequisites[i][1]-1)] = 1;
-		
-		if (array[(prerequisites[i][0]-1)][(prerequisites[i][1]-1)] == 1 &&
-						 array[(prerequisites[i][1]-1)][(prerequisites[i][0]-1)]== 1)
-		{//排除互相依赖的课程(即不合法的课程)
-			return false;
-		}
-	}
-
-	for (int i = 0 ;i < numCourses;i++)
-	{
-		for (int j = 0;j < numCourses;j++)
+		tmpval = dequeue(&g_queue);
+		cnt++;
+		for (i = 0 ;i < numCourses;i++)
 		{
-			if (array[i][j] == 1)
+			if (map[tmpval][i] == 1)//找到节点
 			{
-				total+=2;
+				degree[i] -= 1;//入度-1
+				if (degree[i] == 0)//如果入度为0,则入队
+				{
+					enqueue(&g_queue,i);
+				}
 			}
 		}
 	}
-
-	if (total != numCourses)
+	
+	for (i = 0;i < numCourses;i++)
+	{
+		free(map[i]);
+	}
+	
+	free(map);
+	free(degree);
+    
+	if (cnt != numCourses)
 	{
 		return false;
 	}
 
-	*prerequisitesColSize = 2;
 	return true;
 }
 
 
-int main()
-{
-	int numCourses = 2;
-	int prerequisitesSize = 1;
-	int rerequisitesColSize = 2;
-	int **prerequisites = NULL;
-
-	prerequisites = (int **)malloc(sizeof(int *)*prerequisitesSize);
-	for (int i = 0; i < prerequisitesSize; i++)
-	{
-		 prerequisites[i] =(int*)malloc(sizeof(int)*rerequisitesColSize);
-		 memset(prerequisites[i],0,sizeof(int)*rerequisitesColSize);
-	}
-
-	prerequisites[0][0] = 2;
-	prerequisites[0][1] = 1;	
-	
-	bool ret = canFinish(numCourses, prerequisites, prerequisitesSize, &rerequisitesColSize);
-	printf("%s\n",(ret == false)?"no":"yes");
-	
-	return 0;
-}
