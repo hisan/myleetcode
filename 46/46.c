@@ -1,4 +1,4 @@
-int ***result,int *array_size,int *nums,const int numsSize,int *cur_ret,int *curnum,int *visited,int **returnColumnSizes)
+int DFS(int ***result,int *array_size,int *nums,const int numsSize,int *cur_ret,int *curnum,int *visited,int **returnColumnSizes)
 {
 	int i = 0;
 	
