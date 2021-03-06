@@ -48,6 +48,7 @@ char * reverseWords(char * s){
     return ret;
 }
 
+
 int main()
 {
 	char *s = "Let's take LeetCode contest";
