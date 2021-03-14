@@ -8,61 +8,44 @@
 
 
 struct ListNode* mergeTwoLists(struct ListNode* l1, struct ListNode* l2){
-	
     typedef struct ListNode Node;
-    Node *p1 = l1;
-    Node *p2 = l2;
-	Node *head = NULL;
-	Node *pnewlist = NULL;
-	
-	if (l1 == NULL || l2 == NULL)
-	{
-		return l1 == NULL?l1:l2;
-	}
-	
-    while (p1 != NULL && p2 != NULL)
+    Node *head = NULL;
+    Node *New_List = NULL; 
+
+    if (l1 == NULL || l2 == NULL)
     {
-		if (p1->val < p2->val)
-		{
-			if (pnewlist)
-			{
-				pnewlist->next = p1;
-				pnewlist = pnewlist->next;
-			}
-			else 
-			{
-				head = p1;
-				pnewlist = p1;
-			}
-			
-			p1 = p1->next;
-		}
-		else 
-		{
-			if (pnewlist)
-			{
-				pnewlist->next = p2;
-				pnewlist = pnewlist->next;
-			}
-			else 
-			{
-				head = p2;
-				pnewlist = p2;
-			}
-			
-			p2 = p2->next;
-		}
+        return l1==NULL?l2:l1;
     }
-	
-	if (p1 != NULL)
-	{
-		pnewlist->next = p1;
-	}
-	
-	if (p2)
-	{
-		pnewlist->next = p2;
-	}
-	
-	return head;
+
+    New_List = (Node *)malloc(sizeof(Node));
+    memset(New_List,0,sizeof(Node));
+    head = New_List;
+    
+    while (l1&&l2)
+    {
+        if (l2->val <= l1->val)
+        {
+            New_List->next = l2;
+            New_List = New_List->next;
+            l2 = l2->next;
+        }
+        else 
+        {
+            New_List->next = l1;
+            New_List = New_List->next;
+            l1 = l1->next;
+        }
+    }
+
+    if (l1)
+    {
+        New_List->next = l1;
+    }
+
+    if (l2)
+    {
+        New_List->next = l2;
+    }
+
+    return head->next;
 }
