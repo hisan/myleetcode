@@ -18,7 +18,7 @@ int trap(int* height, int heightSize){
 
     int max_high = height[0];
     int max_pos = 0;
-    for (int i = 1 ; i < heightSize;i++)
+    for (int i = 1 ; i < heightSize;i++)//找到峰值最高的点，以它为标志点，从两边开始向它靠拢，因为我们知道它一定是一面合格的水池的墙
     {
         if (max_high < height[i])
         {
@@ -34,26 +34,33 @@ int trap(int* height, int heightSize){
     int wall_size = 0;
     while (left < max_pos)
     {
-        while (left < max_pos && height[left] <= height[left+1])
+        while (left < max_pos && height[left+1] >= height[left])//找到能蓄水的池子的左墙 |__|
         {
             left++;
-        }
-		
-		if (left == max_pos)
+        }                                     
+        
+        #if 0
+                              |
+                            |||
+		   说明都是这种情况||||
+        #endif
+
+        if (left == max_pos)
 		{
 			break;
 		}
 		
-        LR = left+1;
+        LR = left+1;//最终找到一堵比左墙矮的墙
         
-		while (LR <= max_pos && height[LR] < height[left])//找到下一堵墙,使得能积水
+		while (LR <= max_pos && height[LR] < height[left])//找到下一堵墙,使之得能积水
         {
             LR++;
         }
 		
+		//以下是计算积水面积的公式，我们先计算出左右两面墙之间的墙体占的体积
         for (int k = left;k <= LR;k++)
         {
-            if (height[k] > min(height[left],height[LR]))
+            if (height[k] > min(height[left],height[LR]))//以两面墙的最小值来计算
             {
                 wall_size += min(height[left],height[LR]);
             }
@@ -63,7 +70,8 @@ int trap(int* height, int heightSize){
             }
         }
 		
-        all_height_l += (LR - left+1)*min(height[LR],height[left]) - wall_size;
+		//(LR - left+1)*min(height[LR],height[left])，左右墙形成的矩形，面积为两面墙的宽乘高（左右两高的较小高）
+        all_height_l += (LR - left+1)*min(height[LR],height[left]) - wall_size;//再减去实体墙占的空间，就得到水的面积
 		
 		printf("wall_size: %d,all_height_l:%d\n",wall_size,all_height_l);
 		
@@ -77,7 +85,7 @@ int trap(int* height, int heightSize){
     int all_height_r = 0;
     while (max_pos < right)
     {
-        while (right > max_pos && height[right - 1] >= height[right])
+        while (right > max_pos && height[right - 1] >= height[right])//这里right>max_po是对应height[right - 1] >= height[right]，right>max_po保证了right-1>=max_pos
         {
             right--;
         }
@@ -89,7 +97,7 @@ int trap(int* height, int heightSize){
 		
         RL = right-1;
 		
-        while (RL >= max_pos && height[RL] < height[right])
+        while (RL >= max_pos && height[RL] < height[right])//我们知道max_pos一定为合格的墙，所以RL可以等于max_pos,当它等于max_pos时说明它是最后一个洼地
         {
             RL--;
         }
@@ -130,4 +138,113 @@ int main()
 	printf("\n\n\nresult:%d\n",ret);
 	return 0;
 }
+
+
+#if 0  //默写
+int min(int a,int b)
+{
+    return a>b?b:a;
+}
+
+int trap(int* height, int heightSize)
+{
+	int i = 0,j = 0;
+	int left = 0;
+	int right = heightSize - 1;
+	
+	if (heightSize <= 2)
+	{
+		return 0;
+	}
+	
+	int LR = 0,RL = 0;
+	int wallsize = 0;
+	int L_HEIGHT = 0,R_HEIGHT = 0;
+	
+	int max_pos = 0;
+	int tmp = height[0];
+	
+	for (i = 1;i < heightSize;i++)
+	{
+		if (tmp <= height[i])
+		{
+			tmp = height[i];
+			max_pos = i;
+		}
+	}
+	
+	while (left < max_pos)
+	{
+		while (left < max_pos && height[left+1] >= height[left])
+		{
+			left++;
+		}
+		
+		if (left == max_pos)
+		{
+			break;
+		}
+		
+		LR = left + 1;
+		
+		while (LR <= max_pos && height[LR] < height[left])
+		{
+			LR++;
+		}
+		
+		for (j = left;j<=LR;j++)
+		{
+			if (height[j] > min(height[left],height[LR]) )
+			{
+				wallsize  += min(height[left],height[LR]);
+			}
+			else 
+			{
+				wallsize += height[j];
+			}
+		}
+		
+		L_HEIGHT += (LR - left +1 )*min(height[left],height[LR]) - wallsize;
+		wallsize = 0;
+		left = LR;
+	}
+	
+	while (right > max_pos)
+	{
+		while (right > max_pos && height[right] <= height[right-1])
+		{
+			right--;
+		}
+		
+		if (right == max_pos)
+		{
+			break;
+		}
+		
+		RL = right - 1;
+		while (RL >= max_pos && height[RL] < height[right])
+		{
+			RL--;
+		}
+		
+		for (j = RL;j<=right;j++)
+		{
+			if (height[j] > min(height[right],height[RL]) )
+			{
+				wallsize  += min(height[right],height[RL]);
+			}
+			else 
+			{
+				wallsize += height[j];
+			}
+		}
+		
+		R_HEIGHT += (right - RL +1 )*min(height[right],height[RL]) - wallsize;
+		wallsize = 0;
+		right = RL;
+	}
+	
+	return L_HEIGHT + R_HEIGHT;
+}
+#endif 
 
