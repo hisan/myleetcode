@@ -2,20 +2,33 @@
 #include <string.h>
 #include <stdlib.h>
 
-void dfs(int size,int *visited,char **ret_array,char *cur_array,int *cur_size,int *cnt,int k)
+void dfs(int size,int *visited,char **ret_array,char *cur_array,int *cur_size,int *cnt,int k,int *go_flag)
 {
     int i = 0;
     char *ret = NULL;
+	
+	if (*go_flag == 1)
+	{
+		return;
+	}
+	
     if (*cur_size == size)
     {
         *cnt += 1;
         if (*cnt == k)
         {
-            ret  = (char *)malloc(size+1);
+			#if 0
+            ret = (char *)malloc(size+1);
             memset(ret,0,size+1);
             strncpy(ret,cur_array,size);
             *ret_array = ret;
+			#endif
+			
+			*ret_array = (char *)malloc(size+1);
+			memset(*ret_array,0,size+1);
+			strncpy(*ret_array,cur_array,size);
         }
+		
         return;
     }
 
@@ -31,7 +44,7 @@ void dfs(int size,int *visited,char **ret_array,char *cur_array,int *cur_size,in
         visited[i] = 1;
         (*cur_size) += 1;
         
-        dfs(size,visited,ret_array,cur_array,cur_size,cnt,k);
+        dfs(size,visited,ret_array,cur_array,cur_size,cnt,k,go_flag);
 
         visited[i] = 0;
         (*cur_size) -= 1;
@@ -44,8 +57,9 @@ char * getPermutation(int n, int k){
     char *ret_array = NULL;
     char cur_array[10] = {0};
     int cur_size = 0;
+	int go_flag = 0;
 
-    dfs(n,visited,&ret_array,cur_array,&cur_size,&count,k);
+    dfs(n,visited,&ret_array,cur_array,&cur_size,&count,k,&go_flag);
 
     return ret_array;
 }
