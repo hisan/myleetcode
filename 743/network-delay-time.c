@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
+
+//#define INT_MAX ((2<<31) - 1)
 
 typedef struct st_Queue
 {
@@ -50,7 +53,10 @@ int networkDelayTime(int** times, int timesSize, int* timesColSize, int n, int k
     int i = 0;
     int j = 0;
     int res = 0;
-
+	int INT_MAX = pow(2,31)-1;
+	
+	printf("%d\n",INT_MAX);
+	
     for (i = 0 ; i < 101;i++)
     {
         dist[i] = INT_MAX;
@@ -116,33 +122,22 @@ int main()
 		times[i] = (int *)malloc(sizeof(int)*timesColSize);
 		memset(times[i],0,sizeof(int)*timesColSize);
 	}
-	
+
 	times[0][0] = 1;
 	times[0][1] = 2;
 	times[0][2] = 1;
-	
 
 	times[1][0] = 2;
 	times[1][1] = 3;
 	times[1][2] = 2;
 
-#if 0
 	times[2][0] = 1;
 	times[2][1] = 3;
 	times[2][2] = 2;
-
-#endif
 	
+	second = networkDelayTime(times,timesSize,&timesColSize,n,k);	
 	
-	#if 0
-	[[1,2,1],[2,3,2],[1,3,2]]
-3
-1
-	#endif 
-	
-	second = networkDelayTime(times,timesSize,&timesColSize,n,k);
-	
-	printf("%d\n",second);
+	printf("second: %d\n",second);
 	
 	return 0;
 }
