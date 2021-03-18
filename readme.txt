@@ -3,16 +3,6 @@
 上传以前刷过的leetcode的题目以及思考
 以及现在或不久的刷题思路和代码
 
-a.txt
-c
-CODER_JINDIAN
-common_use
-jihua.txt
-JZ_OFFER
-mygcc.c
-readme.txt
-sortandsearch
-week_competition
 1
 2
 3
