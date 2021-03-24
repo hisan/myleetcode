@@ -3,7 +3,7 @@
 上传以前刷过的leetcode的题目以及思考
 以及现在或不久的刷题思路和代码
 
-题号 | 连接|实现语言
+题号 |链接|实现语言
 :-|:-|:-|
 1 | https://github.com/hisan/myleetcode/tree/master/1 | c
 2 | https://github.com/hisan/myleetcode/tree/master/2 | c
