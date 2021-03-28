@@ -2,9 +2,7 @@
 
 double myPow(double x, int n)
 {
-	double ret = 1.0;    
-	int sign = n<0?-1:1;
-	int count = 0;
+	double ret = 1.0;
 	
     while (n != 0)
     {
@@ -14,16 +12,10 @@ double myPow(double x, int n)
         }
 
         x *= x;
-        n >>=1;
-		printf("%d\n",n);
-		count++;
-		if (count == 10)
-		{
-			break;
-		}
+        n/=2;
     }
 	
-    return sign == -1?1/ret:ret;
+    return ret;
 }
 
 int main()
