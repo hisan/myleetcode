@@ -7,12 +7,10 @@
 -|-|-
 CODER_JINDIAN | https://github.com/hisan/myleetcode/tree/master/CODER_JINDIAN | c
 common_use | https://github.com/hisan/myleetcode/tree/master/common_use | c
-dir.txt | https://github.com/hisan/myleetcode/tree/master/dir.txt | c
 jihua.txt | https://github.com/hisan/myleetcode/tree/master/jihua.txt | c
 JZ_OFFER | https://github.com/hisan/myleetcode/tree/master/JZ_OFFER | c
 mygcc.c | https://github.com/hisan/myleetcode/tree/master/mygcc.c | c
 readme.md | https://github.com/hisan/myleetcode/tree/master/readme.md | c
-readme.rd | https://github.com/hisan/myleetcode/tree/master/readme.rd | c
 sortandsearch | https://github.com/hisan/myleetcode/tree/master/sortandsearch | c
 table.sh | https://github.com/hisan/myleetcode/tree/master/table.sh | c
 week_competition | https://github.com/hisan/myleetcode/tree/master/week_competition | c
