@@ -39,6 +39,7 @@ week_competition | https://github.com/hisan/myleetcode/tree/master/week_competit
 30 | https://github.com/hisan/myleetcode/tree/master/30 | c
 32 | https://github.com/hisan/myleetcode/tree/master/32 | c
 33 | https://github.com/hisan/myleetcode/tree/master/33 | c
+35 | https://github.com/hisan/myleetcode/tree/master/35 | c
 39 | https://github.com/hisan/myleetcode/tree/master/39 | c
 40 | https://github.com/hisan/myleetcode/tree/master/40 | c
 42 | https://github.com/hisan/myleetcode/tree/master/42 | c
