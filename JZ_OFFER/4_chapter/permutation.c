@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
- #include <sys/time.h>
+#include <sys/time.h>
 
 /**
  * Note: The returned array must be malloced, assume caller calls free().
@@ -25,7 +25,7 @@ void DFS(const char *str,const int len,char ***res,int *returnSize,char *cur_str
     int visited[128] = {0};
     for (int i = 0; i < str_len;i++)
     {
-        if (visited[(int)str[i]] == 1)//Í¬²ã´ÎÖØ¸´ÔªËØ¼ôÖ¦È¥ÖØ
+        if (visited[(int)str[i]] == 1)//¿¿¿¿¿¿¿¿¿¿¿
         {
             continue;
         }
@@ -34,17 +34,13 @@ void DFS(const char *str,const int len,char ***res,int *returnSize,char *cur_str
         cur_str[cur_size] = str[i];
 		newsize = 0;
 		
-		// memcpy(newstr,str,i);
-		// memcpy(&newstr[i],&str[i+1],str_len-i-1);
-		
-		for (int j = 0;j < str_len;j++)
+        for (int j = 0;j < str_len;j++)
         {
             if (j != i)
             {
                 newstr[newsize++] = str[j];
             }
         }
-		
         DFS(newstr,len,res,returnSize,cur_str,cur_size+1);
     }
 }
@@ -59,7 +55,6 @@ char** permutation(char* s, int* returnSize){
     DFS(s,len,&res,returnSize,cur_str,cur_size);
     return res;
 }
-
 
 int main()
 {
