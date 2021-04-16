@@ -39,6 +39,7 @@ week_competition | https://github.com/hisan/myleetcode/tree/master/week_competit
 30 | https://github.com/hisan/myleetcode/tree/master/30 | c
 32 | https://github.com/hisan/myleetcode/tree/master/32 | c
 33 | https://github.com/hisan/myleetcode/tree/master/33 | c
+34 | https://github.com/hisan/myleetcode/tree/master/34 | c
 35 | https://github.com/hisan/myleetcode/tree/master/35 | c
 39 | https://github.com/hisan/myleetcode/tree/master/39 | c
 40 | https://github.com/hisan/myleetcode/tree/master/40 | c
@@ -90,6 +91,7 @@ week_competition | https://github.com/hisan/myleetcode/tree/master/week_competit
 155 | https://github.com/hisan/myleetcode/tree/master/155 | c
 160 | https://github.com/hisan/myleetcode/tree/master/160 | c
 162 | https://github.com/hisan/myleetcode/tree/master/162 | c
+167 | https://github.com/hisan/myleetcode/tree/master/167 | c
 169 | https://github.com/hisan/myleetcode/tree/master/169 | c
 173 | https://github.com/hisan/myleetcode/tree/master/173 | c
 179 | https://github.com/hisan/myleetcode/tree/master/179 | c
@@ -114,8 +116,10 @@ week_competition | https://github.com/hisan/myleetcode/tree/master/week_competit
 242 | https://github.com/hisan/myleetcode/tree/master/242 | c
 263 | https://github.com/hisan/myleetcode/tree/master/263 | c
 264 | https://github.com/hisan/myleetcode/tree/master/264 | c
+287 | https://github.com/hisan/myleetcode/tree/master/287 | c
 292 | https://github.com/hisan/myleetcode/tree/master/292 | c
 295 | https://github.com/hisan/myleetcode/tree/master/295 | c
+309 | https://github.com/hisan/myleetcode/tree/master/309 | c
 318 | https://github.com/hisan/myleetcode/tree/master/318 | c
 322 | https://github.com/hisan/myleetcode/tree/master/322 | c
 324 | https://github.com/hisan/myleetcode/tree/master/324 | c
