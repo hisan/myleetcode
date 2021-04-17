@@ -4,7 +4,6 @@
 
 题号 |链接|实现语言
 -|-|-
-code | https://github.com/hisan/myleetcode/tree/master/code/code | c
 CODER_JINDIAN | https://github.com/hisan/myleetcode/tree/master/code/CODER_JINDIAN | c
 common_use | https://github.com/hisan/myleetcode/tree/master/code/common_use | c
 jihua.txt | https://github.com/hisan/myleetcode/tree/master/code/jihua.txt | c
