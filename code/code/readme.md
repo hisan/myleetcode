@@ -4,13 +4,14 @@
 
 题号 |链接|实现语言
 -|-|-
-code | https://github.com/hisan/myleetcode/tree/master/code | c
 CODER_JINDIAN | https://github.com/hisan/myleetcode/tree/master/CODER_JINDIAN | c
 common_use | https://github.com/hisan/myleetcode/tree/master/common_use | c
 jihua.txt | https://github.com/hisan/myleetcode/tree/master/jihua.txt | c
 JZ_OFFER | https://github.com/hisan/myleetcode/tree/master/JZ_OFFER | c
 mygcc.c | https://github.com/hisan/myleetcode/tree/master/mygcc.c | c
+readme.md | https://github.com/hisan/myleetcode/tree/master/readme.md | c
 sortandsearch | https://github.com/hisan/myleetcode/tree/master/sortandsearch | c
+table.sh | https://github.com/hisan/myleetcode/tree/master/table.sh | c
 week_competition | https://github.com/hisan/myleetcode/tree/master/week_competition | c
 1 | https://github.com/hisan/myleetcode/tree/master/1 | c
 2 | https://github.com/hisan/myleetcode/tree/master/2 | c
