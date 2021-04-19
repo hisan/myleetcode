@@ -3,11 +3,7 @@
 #include <string.h>
 #include <sys/time.h>
 
-/**
- * Note: The returned array must be malloced, assume caller calls free().
- */
-
-void DFS(const char *str,const int len,char ***res,int *returnSize,char *cur_str,int cur_size)
+void DFS(const char *str,const int len,char ***res,int *returnSize,char *cur_str,int cur_size,int *num_visited)
 {
     if (cur_size == len)
     {
@@ -19,29 +15,25 @@ void DFS(const char *str,const int len,char ***res,int *returnSize,char *cur_str
         return;
     }
 
-    int str_len = strlen(str);
-    char newstr[20] = {0};
-    int newsize = 0;
     int visited[128] = {0};
-    for (int i = 0; i < str_len;i++)
+    for (int i = 0; i < len;i++)
     {
-        if (visited[(int)str[i]] == 1)//¿¿¿¿¿¿¿¿¿¿¿
+		if (num_visited[i] == 1)//Éî¶ÈÓÅÏÈ±éÀúµÄ±£Ö¤
+		{
+			continue;
+		}
+		
+        if (visited[(int)str[i]] == 1)//Í¬²ã´ÎÖØ¸´ÔªËØ¼ôÖ¦È¥ÖØ
         {
             continue;
         }
-        
+		
+		num_visited[i] = 1;
         visited[(int)str[i]] = 1;
         cur_str[cur_size] = str[i];
-		newsize = 0;
-		
-        for (int j = 0;j < str_len;j++)
-        {
-            if (j != i)
-            {
-                newstr[newsize++] = str[j];
-            }
-        }
-        DFS(newstr,len,res,returnSize,cur_str,cur_size+1);
+
+        DFS(str,len,res,returnSize,cur_str,cur_size+1,num_visited);
+		num_visited[i] = 0;
     }
 }
 
@@ -52,7 +44,12 @@ char** permutation(char* s, int* returnSize){
     int len = strlen(s);
 
     (*returnSize) = 0;
-    DFS(s,len,&res,returnSize,cur_str,cur_size);
+	
+	int *num_visited = (int *)malloc(sizeof(int)*len);
+	
+	memset(num_visited,0,sizeof(int)*len);
+	
+    DFS(s,len,&res,returnSize,cur_str,cur_size,num_visited);
     return res;
 }
 
@@ -90,4 +87,50 @@ int main()
 	
 	return 0;
 }
+
+class Solution {
+public:
+	void dfs(const string &s,vector<string> &res,string &cur_str,map<int,int> &numvisited)
+	{
+		if (cur_str.size() == s.size())
+		{
+			res.push_back(cur_str);
+			return0;
+		}
+		
+		bool visited[128] = {0};
+		for (size_t i = 0 ; i < s.size();++i)
+		{
+			if (num_visited[i] == 1)
+			{
+				continue;
+			}
+			
+			if (visited[(int)str[i]] == 1)
+			{
+				continue;
+			}
+			
+			visited[(int)str[i]] = 1;
+			num_visited[i] = 1;
+			
+			cur_str.push_back(str[i]);
+			
+			dfs(s,res,cur_str,numvisited);
+			
+			cur_str.pop_back();
+			num_visited[i] = 0;
+		}
+	}
+	
+    vector<string> permutation(string s) {
+		vector<string> res;
+		string cur_str;
+		map<int,int> numvisited;
+		dfs(s,res,cur_str,numvisited);
+		return res;
+    }
+};
+
+
 
