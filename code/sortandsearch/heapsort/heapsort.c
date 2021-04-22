@@ -5,9 +5,9 @@
 
 void Swap(int *a,int *b)
 {
-    int temp = *a;
-    *a = *b;
-    *b = temp;
+    (*a) ^= (*b);
+	(*b) ^= (*a);
+	(*a) ^= (*b);
 }
 
 void AdjustDown(int *A,int i,int len)
@@ -2018,7 +2018,6 @@ int a[] = {2,0,6,9,8,4,5,0,8,9,0,1,2,213,1,3,32,13,1,23,12,34,234,12,31,23,123,1
 
 		
 #endif
-
 
 
 
