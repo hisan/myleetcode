@@ -5,11 +5,11 @@
 题号 |链接|实现语言
 -|-|-
 CODER_JINDIAN | https://github.com/hisan/myleetcode/tree/master/code/CODER_JINDIAN | c
+COMMON_ALGORITHM | https://github.com/hisan/myleetcode/tree/master/code/COMMON_ALGORITHM | c
 common_use | https://github.com/hisan/myleetcode/tree/master/code/common_use | c
 jihua.txt | https://github.com/hisan/myleetcode/tree/master/code/jihua.txt | c
 JZ_OFFER | https://github.com/hisan/myleetcode/tree/master/code/JZ_OFFER | c
 mygcc.c | https://github.com/hisan/myleetcode/tree/master/code/mygcc.c | c
-sortandsearch | https://github.com/hisan/myleetcode/tree/master/code/sortandsearch | c
 week_competition | https://github.com/hisan/myleetcode/tree/master/code/week_competition | c
 1 | https://github.com/hisan/myleetcode/tree/master/code/1 | c
 2 | https://github.com/hisan/myleetcode/tree/master/code/2 | c
