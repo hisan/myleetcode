@@ -1,15 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-void outputarray(int *g,int size)
-{
-	for (int i = 0; i < size;i++)
-	{
-		printf("%d ",g[i]);
-	}
-	printf("\n");
-}
+#include "/home/zyb/CODE/API/include/aux_api.h"
 
 void bubblesort(int *a,int size)
 {
